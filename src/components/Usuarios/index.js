@@ -8,17 +8,19 @@ import * as usuariosActions from '../../actions/usuariosActions';
 
 class Usuarios extends Component {
 
-componentDidMount() {
+  componentDidMount() {
+    if(!this.props.usuarios.length){
       this.props.traerTodos();
-}
+    }
+  }
 
-ponerContenido = () => {
-  if(this.props.cargando) {
-    return(
-    <div>
-      <Spinner />;
-    </div>
-    )
+  ponerContenido = () => {
+    if(this.props.cargando) {
+      return(
+      <div>
+        <Spinner />;
+      </div>
+      )
   }
   if(this.props.error){
     return <Fatal mensaje={this.props.error}/>;
@@ -26,21 +28,21 @@ ponerContenido = () => {
     return(
       <Tabla />
     )
-};
+  };
 
 
-render(){
-  return (
-    <div>
-      <h1>Usuarios</h1>
-      {this.ponerContenido()}
-    </div>
-  )
- }
-};
+  render(){
+    return (
+      <div>
+        <h1>Usuarios</h1>
+        {this.ponerContenido()}
+      </div>
+    )
+  }
+  };
 
-const mapStateToProps = (reducers) => {
-  return reducers.usuariosReducer;
-};
+  const mapStateToProps = (reducers) => {
+    return reducers.usuariosReducer;
+  };
 
 export default connect(mapStateToProps, usuariosActions)(Usuarios);
